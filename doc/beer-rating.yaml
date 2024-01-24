@@ -1,0 +1,227 @@
+openapi: 3.0.3
+info:
+  title: Beer Rating Service API
+  description: Beer Rating Service API
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /beers:
+    get:
+      summary: List all available beers
+      parameters:
+        - name: id
+          in: query
+          description: "Beer ID"
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: page
+          in: query
+          description: "Beer list page"
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: size
+          in: query
+          description: "Beer list page size"
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: Beer list
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Beer'
+        400:
+          description: "Invalid input etc."
+          content:
+            text/plain:
+              example: "Invalid parameter"
+        500:
+          description: "Server error"
+          content:
+            text/plain:
+              example: "Unknown error, try again later"
+  /rating/{id}:
+    get:
+      summary: Get rating of a beer
+      parameters:
+        - name: id
+          in: path
+          description: "Beer ID"
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: Beer rating
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeerRating'
+        400:
+          description: "Invalid input etc."
+          content:
+            text/plain:
+              example: "Invalid parameter"
+        500:
+          description: "Server error"
+          content:
+            text/plain:
+              example: "Unknown error, try again later"
+    put:
+      summary: Update rating of a beer
+      parameters:
+        - name: id
+          in: query
+          description: "Beer ID"
+          required: true
+          schema:
+            $ref: '#/components/schemas/BeerRating'
+      responses:
+        200:
+          description: Beer rating
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeerRating'
+        400:
+          description: "Invalid input etc."
+          content:
+            text/plain:
+              example: "Invalid parameter"
+        404:
+          description: "Rating not found"
+          content:
+            text/plain:
+              example: "Not Found"
+        500:
+          description: "Server error"
+          content:
+            text/plain:
+              example: "Unknown error, try again later"
+    delete:
+      summary: Delete rating of a beer
+      parameters:
+        - name: id
+          in: path
+          description: "Beer ID"
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: Beer rating
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeerRating'
+        400:
+          description: "Invalid input etc."
+          content:
+            text/plain:
+              example: "Invalid parameter"
+        500:
+          description: "Server error"
+          content:
+            text/plain:
+              example: "Unknown error, try again later"
+  /rating:
+    post:
+      summary: Add rating of a beer
+      parameters:
+        - name: id
+          in: query
+          description: "Beer ID"
+          required: true
+          schema:
+            $ref: '#/components/schemas/BeerRating'
+      responses:
+        200:
+          description: Beer rating
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeerRating'
+        400:
+          description: "Invalid input etc."
+          content:
+            text/plain:
+              example: "Invalid parameter"
+        500:
+          description: "Server error"
+          content:
+            text/plain:
+              example: "Unknown error, try again later"
+components:
+  schemas:
+    BeerRating:
+      type: object
+      required:
+        - beer
+        - rating
+      properties:
+        beer:
+          $ref: '#/components/schemas/Beer'
+        rating:
+          type: integer
+          description: "Beer rating, 1 to 5 stars"
+          example: 2
+          default: 5
+          minimum: 1
+          maximum: 5
+        note:
+          type: string
+          description: "Additional note"
+    Beer:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 6197
+        uid:
+          type: string
+          format: uuid
+          example: "b0912b76-0b9a-4b66-bbb7-06d1f953e836"
+        brand:
+          type: string
+          example: "Becks"
+        name:
+          type: string
+          example: "Péché Mortel"
+        style:
+          type: string
+          example: "Vegetable Beer"
+        hop:
+          type: string
+          example: "Saaz"
+        yeast:
+          type: string
+          example: "2000 - Budvar Lager"
+        malts:
+          type: string
+          example: "Caramel"
+        ibu:
+          type: string
+          example: "100 IBU"
+        alcohol:
+          type: string
+          example: "2.2%"
+        blg:
+          type: string
+          example: "16.1°Blg"
+
+
+
+
