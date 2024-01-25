@@ -176,7 +176,6 @@ components:
           type: integer
           description: "Beer rating, 1 to 5 stars"
           example: 2
-          default: 5
           minimum: 1
           maximum: 5
         note:

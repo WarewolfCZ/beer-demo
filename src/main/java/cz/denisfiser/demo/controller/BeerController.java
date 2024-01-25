@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Serves beers loaded from remote API.
+ * The beers are loaded on the first run and then on future runs whenever the database table is empty
+ */
 @RestController
 public class BeerController {
 

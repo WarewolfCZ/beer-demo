@@ -13,6 +13,11 @@ public class DemoApplication {
     }
 
 
+    /**
+     * Creates RestTemplate for consuming REST API
+     * @param builder template builder
+     * @return rest template
+     */
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
